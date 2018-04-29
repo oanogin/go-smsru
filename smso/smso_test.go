@@ -1,9 +1,10 @@
 package sms_test
 
 import (
-	"github.com/dmitriy-borisov/go-smsru"
 	"os"
 	"testing"
+
+	sms "github.com/oanogin/go-smsru"
 )
 
 const (
@@ -14,7 +15,7 @@ func getPhone() string {
 	return os.Getenv("phone")
 }
 
-func getClient(t *testing.T) *sms.SmsClient {
+func getClient(t *testing.T) *sms.Client {
 	apiId := os.Getenv("api_id")
 	return sms.NewClient(apiId)
 }
