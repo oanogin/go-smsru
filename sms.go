@@ -12,7 +12,7 @@ import (
 )
 
 // Base API url
-const API_URL = "http://sms.ru"
+const API_URL = "https://sms.ru"
 
 var codeStatus map[int]string = map[int]string{
 	-1:  "Not found",
