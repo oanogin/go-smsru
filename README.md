@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/oanogin/go-smsru?status.svg)](https://godoc.org/github.com/oanogin/go-smsru)
 
 ## Supports:
-- [x] sms/send 
+- [ ] sms/send
 - [ ] sms/status
 - [ ] sms/cost
 - [ ] balance
@@ -26,7 +26,7 @@ Import:
 import "github.com/oanogin/go-smsru"
 ```
 
-## Examples ##
+<!-- ## Examples ##
 
 ```go
 package main
@@ -63,7 +63,7 @@ func main() {
         log.Printf("Status = %d, Ids = %v, Balance = %f", res.Status, res.Ids, res.Balance)
     }
 }
-```
+``` -->
 
 ## Tests ##
 
