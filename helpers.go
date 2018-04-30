@@ -4,6 +4,6 @@ import (
 	"strings"
 )
 
-func hairPhone(phone string) string {
+func HairPhone(phone string) string {
 	return strings.Replace(phone, "+", "", -1)
 }

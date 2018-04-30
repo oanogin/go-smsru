@@ -2,7 +2,6 @@ package smsru
 
 import (
 	"bytes"
-	"encoding/json"
 	"net/http"
 	"net/url"
 )
@@ -15,6 +14,7 @@ type Client struct {
 	Test     bool
 	JSON     bool
 	Translit bool
+	From     string
 }
 
 func NewClient(aid string, testF, jsonF, translitF bool) *Client {
@@ -27,7 +27,7 @@ func NewClient(aid string, testF, jsonF, translitF bool) *Client {
 	}
 }
 
-func (c *Client) makeRequest(endpoint string, params url.Values, target interface{}) (interface{}, error) {
+func (c *Client) makeRequest(endpoint string, params url.Values) (*bytes.Buffer, error) {
 	params.Set("api_id", c.APIID)
 
 	url := API_URL + endpoint + "?" + params.Encode()
@@ -44,10 +44,5 @@ func (c *Client) makeRequest(endpoint string, params url.Values, target interfac
 		return nil, err
 	}
 
-	err = json.Unmarshal(data.Bytes(), target)
-	if err != nil {
-		return nil, err
-	}
-
-	return target, nil
+	return data, nil
 }

@@ -3,7 +3,7 @@
 [![GoDoc](https://godoc.org/github.com/oanogin/go-smsru?status.svg)](https://godoc.org/github.com/oanogin/go-smsru)
 
 ## Supports:
-- [ ] sms/send 
+- [x] sms/send 
 - [ ] sms/status
 - [ ] sms/cost
 - [ ] balance

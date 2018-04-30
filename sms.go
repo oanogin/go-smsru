@@ -1,6 +1,7 @@
 package smsru
 
 import (
+	"encoding/json"
 	"log"
 	"net/url"
 )
@@ -48,7 +49,7 @@ type SendSmsResult struct {
 
 func (c *Client) SendSms(to, msg string) (*SendSmsResponse, error) {
 	urlValues := url.Values{}
-	urlValues.Set("to", hairPhone(to))
+	urlValues.Set("to", HairPhone(to))
 	urlValues.Set("msg", msg)
 
 	if c.Test {
@@ -63,16 +64,15 @@ func (c *Client) SendSms(to, msg string) (*SendSmsResponse, error) {
 		urlValues.Set("translit", "1")
 	}
 
-	ssr := SendSmsResponse{}
+	ssr := &SendSmsResponse{}
 
-	result, err := c.makeRequest("/sms/send", urlValues, ssr)
+	result, err := c.makeRequest("/sms/send", urlValues)
 
-	ssr = result.(SendSmsResponse)
-
+	err = json.Unmarshal(result.Bytes(), &ssr)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 
-	return &ssr, nil
+	return ssr, nil
 }

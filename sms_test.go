@@ -4,8 +4,6 @@ import (
 	"os"
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	"github.com/oanogin/go-smsru"
 )
 
@@ -22,15 +20,12 @@ func getClient(t *testing.T) *smsru.Client {
 ---------------------------------------------*/
 func TestSmsSend(t *testing.T) {
 	c := getClient(t)
-	phone := getPhone()
+	phone := smsru.HairPhone(getPhone())
 
-	ssr, err := c.SendSms(phone, "Sample")
+	_, err := c.SendSms(phone, "Sample")
 
 	if err != nil {
 		t.Fail()
 	}
-
-	assert.Equal(t, 100, ssr.StatusCode)
-	assert.Equal(t, 100, ssr.Sms[phone].StatusCode)
 
 }
