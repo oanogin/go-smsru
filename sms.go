@@ -1,24 +1,17 @@
 package smsru
 
-import "time"
+import (
+	"log"
+	"net/url"
+)
 
-// SendRequest example
+// SendSmsRequest example
 /*
 	https://sms.ru/sms/send?api_id=[APIID]&to=79255070602,74993221627&msg=hello+world&json=1
 	https://sms.ru/sms/send?api_id=[APIID]&to[79255070602]=hello+world&to[74993221627]=hello+world&json=1
 */
-type SendRequest struct {
-	To        string
-	Msg       string
-	JSON      bool
-	From      string
-	Time      time.Time
-	Translit  bool
-	Test      bool
-	PartnerID int
-}
 
-// SendResponse example
+// SendSmsResponse example
 /*
 	{
 		"status": "OK",
@@ -35,20 +28,51 @@ type SendRequest struct {
 				"status_text": "Неправильно указан номер телефона получателя, либо на него нет маршрута"
 			}
 		},
-		"balance": 1000.76
+		"balance": 1000.74
 	}
 */
-type SendResponse struct {
+type SendSmsResponse struct {
 	Status     string                   `json:"status"`
 	StatusCode int                      `json:"status_code"`
 	Sms        map[string]SendSmsResult `json:"sms"`
 	Balance    float64                  `json:"balance"`
 }
 
-// SendSmsResult contain result about sms messages
+// SendSmsResult contain result about sms messages inside SendResponse
 type SendSmsResult struct {
 	Status     string `json:"status"`
 	StatusCode int    `json:"status_code"`
 	SmsID      string `json:"sms_id"`
 	StatusText string `json:"status_text"`
+}
+
+func (c *Client) SendSms(to, msg string) (*SendSmsResponse, error) {
+	urlValues := url.Values{}
+	urlValues.Set("to", hairPhone(to))
+	urlValues.Set("msg", msg)
+
+	if c.Test {
+		urlValues.Set("test", "1")
+	}
+
+	if c.JSON {
+		urlValues.Set("json", "1")
+	}
+
+	if c.Translit {
+		urlValues.Set("translit", "1")
+	}
+
+	ssr := SendSmsResponse{}
+
+	result, err := c.makeRequest("/sms/send", urlValues, ssr)
+
+	ssr = result.(SendSmsResponse)
+
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	return &ssr, nil
 }

@@ -1,22 +1,29 @@
 # Golang-client for the SMS.ru API #
 
-[![Build Status](https://travis-ci.org/dmitriy-borisov/go-smsru.svg?branch=master)](https://travis-ci.org/dmitriy-borisov/go-smsru)
-[![GoDoc](https://godoc.org/github.com/dmitriy-borisov/go-smsru?status.svg)](https://godoc.org/github.com/dmitriy-borisov/go-smsru)
+[![GoDoc](https://godoc.org/github.com/oanogin/go-smsru?status.svg)](https://godoc.org/github.com/oanogin/go-smsru)
 
-Supports:
-- sms/send, sms/status, sms/cost
-- my/balance, my/limit, my/senders
-- stoplist/get, stoplist/add, stoplist/del
-- callback/get, callback/add, callback/del
+## Supports:
+- [ ] sms/send 
+- [ ] sms/status
+- [ ] sms/cost
+- [ ] balance
+- [ ] limit
+- [ ] senders
+- [ ] stoplist/get
+- [ ] stoplist/add
+- [ ] stoplist/del
+- [ ] callback/get
+- [ ] callback/add
+- [ ] callback/del
 
 ## Installation ##
 Install:
 ```go
-go get github.com/dmitriy-borisov/go-smsru
+go get github.com/oanogin/go-smsru
 ```
 Import:
 ```go
-import "github.com/dmitriy-borisov/go-smsru"
+import "github.com/oanogin/go-smsru"
 ```
 
 ## Examples ##
@@ -26,7 +33,7 @@ package main
 
 import (
     "log"
-    "github.com/dmitriy-borisov/go-smsru"
+    "github.com/oanogin/go-smsru"
 )
 
 const API_ID = "MY_API_ID"
