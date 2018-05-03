@@ -2,7 +2,7 @@ package smsru
 
 import (
 	"encoding/json"
-	"log"
+	"fmt"
 	"net/url"
 )
 
@@ -67,11 +67,17 @@ func (c *Client) SendSms(to, msg string) (*SendSmsResponse, error) {
 	ssr := &SendSmsResponse{}
 
 	result, err := c.makeRequest("/sms/send", urlValues)
+	if err != nil {
+		return nil, err
+	}
 
 	err = json.Unmarshal(result.Bytes(), &ssr)
 	if err != nil {
-		log.Println(err)
 		return nil, err
+	}
+
+	if ssr.Status != "OK" {
+		return nil, fmt.Errorf("Sms.ru Error %d - %s", ssr.StatusCode, CODES[ssr.StatusCode])
 	}
 
 	return ssr, nil
