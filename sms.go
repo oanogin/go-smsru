@@ -68,12 +68,12 @@ func (c *Client) SendSms(to, msg string) (*SendSmsResponse, error) {
 
 	result, err := c.makeRequest("/sms/send", urlValues)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("MakeRequest func error %v", err)
 	}
 
 	err = json.Unmarshal(result.Bytes(), &ssr)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("Unmarhalling error %v", err)
 	}
 
 	if ssr.Status != "OK" {
