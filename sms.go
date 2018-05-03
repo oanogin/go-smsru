@@ -73,7 +73,7 @@ func (c *Client) SendSms(to, msg string) (*SendSmsResponse, error) {
 
 	err = json.Unmarshal(result.Bytes(), &ssr)
 	if err != nil {
-		return nil, fmt.Errorf("Unmarhalling error %v", err)
+		return nil, fmt.Errorf("Unmarshalling error %v", err)
 	}
 
 	if ssr.Status != "OK" {
