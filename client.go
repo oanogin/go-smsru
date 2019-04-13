@@ -2,7 +2,6 @@ package smsru
 
 import (
 	"bytes"
-	"fmt"
 	"net/http"
 	"net/url"
 )
@@ -73,11 +72,10 @@ func NewClient(aid string, testF, jsonF, translitF bool) *Client {
 func (c *Client) makeRequest(endpoint string, params url.Values) (*bytes.Buffer, error) {
 	params.Set("api_id", c.APIID)
 
-	url := API_URL + endpoint + "?" + params.Encode()
+	u := API_URL + endpoint + "?" + params.Encode()
+	eurl, _ := url.Parse(u)
 
-	fmt.Println(url)
-
-	resp, err := c.HTTP.Get(url)
+	resp, err := c.HTTP.Get(eurl.String())
 	if err != nil {
 		return nil, err
 	}
