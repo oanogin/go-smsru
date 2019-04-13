@@ -1,10 +1,10 @@
 package smsru_test
 
 import (
+	"fmt"
+	"github.com/oanogin/go-smsru"
 	"os"
 	"testing"
-
-	"github.com/oanogin/go-smsru"
 )
 
 func getPhone() string {
@@ -13,7 +13,7 @@ func getPhone() string {
 
 func getClient(t *testing.T) *smsru.Client {
 	apiId := os.Getenv("api_id")
-	return smsru.NewClient(apiId, true, true, false)
+	return smsru.NewClient(apiId, false, true, false)
 }
 
 /* Test Sms
@@ -22,7 +22,7 @@ func TestSmsSend(t *testing.T) {
 	c := getClient(t)
 	phone := smsru.HairPhone(getPhone())
 
-	_, err := c.SendSms(phone, "Sample")
+	_, err := c.SendSms(phone, fmt.Sprintf("Привет, это прикол, %s", "1234"))
 
 	if err != nil {
 		t.Fail()
