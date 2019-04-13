@@ -21,8 +21,7 @@ func getClient(t *testing.T) *smsru.Client {
 func TestSmsSend(t *testing.T) {
 	c := getClient(t)
 	phone := smsru.HairPhone(getPhone())
-
-	_, err := c.SendSms(phone, fmt.Sprintf("Привет, это прикол, %s.", "1234"))
+	_, err := c.SendSms(phone, fmt.Sprintf("Привет!, это прикол, - %s.", "1234"))
 
 	if err != nil {
 		t.Fail()
